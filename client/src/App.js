@@ -16,10 +16,11 @@ function App() {
         <Route index element={<Index />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        
+
       </Route>
     </Routes>
 
+    // DONE TILL 40th MINUTE
     
 
   );

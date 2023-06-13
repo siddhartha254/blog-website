@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 img{
   max-width: 100%;
 }
@@ -8,7 +12,7 @@ body{
 
 main{
   padding: 10px;
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
@@ -53,19 +57,24 @@ div.post p.info{
   font-size: 0.7rem;
   font-weight: bold;
   display: flex;
-  gap: 9px;
+  gap: 10px;
 }
 
 div.past p.info a.author{
   color: #222;
 }
 
-div.post div.summary{
+div.post p.summary{
   margin: 10px 0;
   line-height: 1.4rem;
 }
 
-form.login form.register{
+form.login{
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+form.register{
   max-width: 400px;
   margin: 0 auto;
 }
@@ -83,5 +92,13 @@ input{
 button{
   width: 100%;
   display: block;
+  background-color: #555;
+  border: 0;
+  color: white;
+  border-radius: 5px;
+  padding: 7px 0;
+}
 
+form h1{
+  text-align: center;
 }
