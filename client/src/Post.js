@@ -1,16 +1,18 @@
-export default function Post(){
+import {formatISO9075, format} from "date-fns";
+
+export default function Post({title, summary, cover, content, createdAt, author}){
     return(
         <div className="post">
         <div className="image">
           <img src="https://techcrunch.com/wp-content/uploads/2022/12/lawnmower-Large.jpeg?w=730&crop=1" alt="image"></img>
         </div>
         <div className="texts">
-          <h2>battery backup is coming</h2>
+          <h2>{title}</h2>
           <p className="info">
-            <a href="" className="author">author</a>
-            <time>08-06-2023</time>
+            <a href="" className="author">{author.username}</a>
+            <time>{format(new Date(createdAt), 'MMM d, yyyy HH:mm')}</time>
           </p>
-          <p className="summary">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi, hic quos? In nam cumque atque dignissimos nihil excepturi eos, quibusdam voluptatibus quas, maiores mollitia officiis nesciunt corrupti ratione sed! Explicabo.</p>
+          <p className="summary">{summary}</p>
         </div>
       </div>
     )
