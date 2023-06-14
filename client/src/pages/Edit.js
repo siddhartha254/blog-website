@@ -28,16 +28,18 @@ export default function Edit(){
     }, []);
 
     async function updatePost(ev){
-        ev.preventDefault();
+        
 
         const data = new FormData();
         data.set('title', title);
         data.set('summary', summary);
         data.set('content', content);
         data.set('id', id);
-        if(files?.[0]){
+        if(files){
             data.set('file', files?.[0]);
         };
+
+        ev.preventDefault();
 
         const response = await fetch('http://localhost:4000/post',{
             method: 'PUT',
@@ -45,7 +47,7 @@ export default function Edit(){
             credentials: 'include',
         });
         if(response.ok){
-            // setRedirect(true);
+            setRedirect(true);
         }
     }
 
