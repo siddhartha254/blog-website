@@ -1,7 +1,7 @@
 import { formatISO9075, format } from "date-fns";
 import { useContext, useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import { UserContext } from "../UserContext";
+import { UserContext } from "../components/UserContext";
 
 export default function Content(){
     

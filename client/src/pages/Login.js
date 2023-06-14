@@ -1,6 +1,6 @@
-import { useContext, useState } from "react"
-import { Navigate } from "react-router-dom";
-import { UserContext } from "../UserContext";
+import {useContext, useState} from "react"
+import {Navigate} from "react-router-dom";
+import {UserContext} from "../components/UserContext";
 
 export default function Login () {
 

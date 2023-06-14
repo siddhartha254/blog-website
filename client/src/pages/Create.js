@@ -1,8 +1,8 @@
-import { useState } from "react";
+import {useState} from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"
-import { Navigate } from "react-router-dom";
-import Quill from "../Quill";
+import {Navigate} from "react-router-dom";
+import Quill from "../components/Quill";
 
 
 export default function Create(){

@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import {Navigate, useParams} from "react-router-dom";
-import Quill from "../Quill";
+import Quill from "../components/Quill";
 
 
 export default function Edit(){
