@@ -8,6 +8,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import { UserContextProvider } from './UserContext';
 import Create from './pages/Create';
+import Content from './pages/Content';
+import Edit from './pages/Edit';
 
 function App() {
   return (
@@ -19,13 +21,15 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/create" element={<Create />} />
+          <Route path="/post/:id" element={<Content />} />
+          <Route path="/edit/:id" element={<Edit />} />
 
         </Route>
       </Routes>
     </UserContextProvider>
     
 
-    // DONE TILL 40th MINUTE
+    
     
 
   );

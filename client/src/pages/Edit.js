@@ -1,47 +1,61 @@
-import { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"
-import { Navigate } from "react-router-dom";
+import {useState, useEffect} from "react";
+import {Navigate, useParams} from "react-router-dom";
 import Quill from "../Quill";
 
 
-export default function Create(){
+export default function Edit(){
     
+    const {id} = useParams();
+
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
     const [content, setContent] = useState('');
     const [files, setFiles] = useState('');
-
+    
     const [redirect, setRedirect] = useState(false);
 
-    async function createNewPost(ev){
-        
+
+    useEffect(()=>{
+        fetch('http://localhost:4000/post/'+id)
+        .then(response =>{
+            response.json().then(postInfo =>{
+                setTitle(postInfo.title);
+                setContent(postInfo.content);
+                setSummary(postInfo.summary);
+                
+            });
+        });
+    }, []);
+
+    async function updatePost(ev){
+        ev.preventDefault();
+
         const data = new FormData();
         data.set('title', title);
         data.set('summary', summary);
         data.set('content', content);
-        data.set('file', files[0]);
-        
-        ev.preventDefault();
-        //console.log(files);
-        
-        const response = await fetch('http://localhost:4000/post', {
-            method: 'POST',
+        data.set('id', id);
+        if(files?.[0]){
+            data.set('file', files?.[0]);
+        };
+
+        const response = await fetch('http://localhost:4000/post',{
+            method: 'PUT',
             body: data,
             credentials: 'include',
         });
-        
         if(response.ok){
-            setRedirect(true);
+            // setRedirect(true);
         }
     }
 
+
     if(redirect){
-        return <Navigate to={'/'} />
+        return <Navigate to={'/post/'+id} />
     }
 
     return(
-        <form onSubmit={createNewPost}>
+        <form onSubmit={updatePost}>
 
             <input 
                 type="title" 
@@ -63,10 +77,11 @@ export default function Create(){
                 onChange={ev => setFiles(ev.target.files)}
             />
             
-            <Quill value={content} onChange={setContent} />
+            <Quill onChange={setContent} value={content}/>
 
-            <button style={{marginTop:'5px'}}>Post</button>
+            <button style={{marginTop:'5px'}}>Update</button>
         
         </form>
     )
+
 }
