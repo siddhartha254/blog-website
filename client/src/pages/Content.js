@@ -64,6 +64,7 @@ export default function Content(){
                     <Link className="delete-button" onClick={deletePost}>Delete</Link>
                 </div>
             )}
+            <hr></hr>
             <div className="image">
                 <img src={`http://localhost:4000/${postInfo.cover}`} alt="image" />
             </div>

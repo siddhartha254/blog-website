@@ -73,7 +73,7 @@ export default function Create(){
             
             <Quill value={content} onChange={setContent} />
 
-            <button style={{marginTop:'5px'}}>Post</button>
+            <button className="post-button">Post</button>
         
         </form>
     )

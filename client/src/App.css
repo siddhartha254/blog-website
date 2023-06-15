@@ -52,8 +52,17 @@ header nav{
   gap: 18px;
 }
 
-header Link::hover{
-  margin-top: 50px;
+nav a{
+  padding: 4.5px 8px;
+  background-color: #444;
+  color: #f1f1f1;
+  border-radius: 5px;
+}
+
+nav a:hover{
+  background-color: #666;
+  color: #f1f1f1;
+  border-radius: 5px;
 }
 
 div.post{
@@ -87,7 +96,7 @@ div.post p.info{
   gap: 10px;
 }
 
-div.past p.info a.author{
+div.post p.info a.author{
   color: #222;
 }
 
@@ -99,6 +108,11 @@ div.post p.summary{
 form.login{
   max-width: 400px;
   margin: 0 auto;
+}
+
+.login button , .register button{
+  margin-top: 18px;
+  text-align: center;
 }
 
 form.register{
@@ -116,10 +130,15 @@ input{
   background-color: #fff;
 }
 
+
+.post-button{
+  margin-top: 20px;
+}
+
 button{
   width: 100%;
   display: block;
-  background-color: #555;
+  background-color: #444;
   border: 0;
   color: white;
   border-radius: 5px;
@@ -127,28 +146,25 @@ button{
   cursor: pointer;
 }
 
+button:hover{
+  background-color: #666;
+  color: #f1f1f1;
+  border-radius: 5px;
+}
+
 a{
   cursor: pointer;
 }
 
-form.login h1{
-  text-align: center;
-}
-
-form.register h1{
-  text-align: center;
-}
-
 div.post-page div.image {
-  max-height: 600px;
   display: flex;
-  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
 }
 
 div.post-page div.image img{
-  object-fit: cover;
-  object-position: center center;
-  width: 100%;
+  display: inline-block;
 }
 
 div.post-page a{
@@ -186,7 +202,7 @@ div.edit-row{
   gap: 10px;
 }
 
-div.post-page a.edit-button{
+div.post-page a.edit-button, div.post-page a.delete-button{
   background-color: #444;
   color: white;
   display: inline-block;
@@ -197,16 +213,12 @@ div.post-page a.edit-button{
   font-size: 0.8rem;
 }
 
-div.post-page a.delete-button{
-  background-color: #444;
-  color: white;
-  display: inline-block;
-  padding:5px 10px;
-  text-decoration: none;
-  margin-bottom: 10px;
+div.post-page a.edit-button:hover, div.post-page a.delete-button:hover{
+  background-color: #666;
+  color: #f1f1f1;
   border-radius: 5px;
-  font-size: 0.8rem;
 }
+
 
 .toast-content {
   white-space: nowrap;
