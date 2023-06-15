@@ -18,6 +18,24 @@ export default function Content(){
           });
       }, []);
     
+
+    
+    async function deletePost(ev){
+
+        ev.preventDefault();
+
+        const data = new FormData();
+        data.set('id', postInfo._id);
+        // data.set('postInfo', postInfo);
+
+        const response = await fetch('http://localhost:4000/post',{
+            method: 'DELETE',
+            body: data,
+            credentials: 'include',
+        });
+    }
+
+
     if(!postInfo) return '';
 
     return(
@@ -29,6 +47,7 @@ export default function Content(){
             {userInfo.id === postInfo.author._id &&(
                 <div className="edit-row">
                     <Link className="edit-button" to={`/edit/${postInfo._id}`}>Edit</Link>
+                    <Link className="delete-button" to={`/`} onClick={deletePost}>Delete</Link>
                 </div>
             )}
             <div className="image">

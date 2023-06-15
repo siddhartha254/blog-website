@@ -23,6 +23,8 @@ mongoose.connect('mongodb+srv://user:admin@cluster0.dptwbfi.mongodb.net/?retryWr
 const salt = bcrypt.genSaltSync(10);
 const secret = "ewfhiewofuoewbfwevew";
  
+
+// sign up
 app.post('/register', async (req,res)=>{
    
     try{
@@ -37,6 +39,7 @@ app.post('/register', async (req,res)=>{
     }
 })
 
+// login
 app.post('/login', async (req,res)=>{
    
     const {username, password} = req.body;    
@@ -66,12 +69,13 @@ app.get('/profile', (req,res) =>{
     })
 })
 
-
+// logout
 app.post('/logout', (req,res) =>{
     res.cookie('token','').json('ok');
 })
 
 
+// creating a blog
 app.post('/post', uploadMiddleware.single('file'), async (req,res) =>{
     const {originalname, path} = req.file;
     const parts = originalname.split('.');
@@ -96,9 +100,8 @@ app.post('/post', uploadMiddleware.single('file'), async (req,res) =>{
     })
 })
 
+// updating posts
 app.put('/post', uploadMiddleware.single('file'), async(req,res)=>{
-    
-
     
     let newPath = null;
     if(req.file){
@@ -128,18 +131,34 @@ app.put('/post', uploadMiddleware.single('file'), async(req,res)=>{
         postDoc.cover = newPath ? newPath : postDoc.cover;
         await postDoc.save();
 
-        res.json(postDoc);
-        
+        res.json(postDoc); 
     });
-    
 });
 
 
+// deleting posts
+app.delete('/post', async(req,res)=>{
+
+    const {token} = req.cookies;
+    jwt.verify(token, secret, {}, async (err, info)=>{
+        if(err) throw err;
+        
+        const {id} = req.body;
+        const postDoc = await Post.findById(id);
+
+        res.json(postDoc); 
+    });
+});
+
+
+
+// displaying all posts
 app.get('/post', async (req,res)=>{
     res.json(await Post.find().populate('author', ['username']).sort({createdAt: -1}).limit(20));
 })
 
 
+//displaying specific post
 app.get('/post/:id', async(req,res)=>{
     
     const {id} = req.params;

@@ -28,8 +28,6 @@ export default function Edit(){
     }, []);
 
     async function updatePost(ev){
-        
-
         const data = new FormData();
         data.set('title', title);
         data.set('summary', summary);
