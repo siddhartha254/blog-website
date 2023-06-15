@@ -47,6 +47,7 @@ export default function Content(){
                 {autoClose: 1200}
             );
         }
+        
     }
 
 

@@ -17,28 +17,32 @@ export default function Create(){
 
     async function createNewPost(ev){
         
-        const data = new FormData();
-        data.set('title', title);
-        data.set('summary', summary);
-        data.set('content', content);
-        data.set('file', files[0]);
-        
-        ev.preventDefault();
-        //console.log(files);
-        
-        const response = await fetch('http://localhost:4000/post', {
-            method: 'POST',
-            body: data,
-            credentials: 'include',
-        });
-        
-        if(response.ok){
-            setRedirect(true);
-            toast.info(
-                <div className="toast-content">Blog created</div>,
-                {autoClose: 1200}
-            );
+        try{
+            const data = new FormData();
+            data.set('title', title);
+            data.set('summary', summary);
+            data.set('content', content);
+            data.set('file', files[0]);
             
+            ev.preventDefault();
+            //console.log(files);
+            
+            const response = await fetch('http://localhost:4000/post', {
+                method: 'POST',
+                body: data,
+                credentials: 'include',
+            });
+            
+            if(response.ok){
+                setRedirect(true);
+                toast.info(
+                    <div className="toast-content">Blog created</div>,
+                    {autoClose: 1200}
+                );
+                
+            }
+        }catch(err){
+            console.log(err);
         }
     }
 

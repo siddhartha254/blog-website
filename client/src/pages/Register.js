@@ -12,13 +12,19 @@ export default function Register(){
 
     async function register(ev){
         ev.preventDefault();
-    
-        const response = await fetch('http://localhost:4000/register', {
-            method: 'POST',
-            body: JSON.stringify({username,password}),
-            headers: {'Content-Type':'application/json'},
-        })
-        if(response.status === 200){
+        
+        let response=null;
+
+        try{
+            response = await fetch('http://localhost:4000/register', {
+                method: 'POST',
+                body: JSON.stringify({username,password}),
+                headers: {'Content-Type':'application/json'},
+            })
+        }catch(err){
+            console.log(err);
+        }
+        if(response?.status === 200){
             toast.info(
                 <div className="toast-content">Account created</div>,
                 {autoClose: 1200}

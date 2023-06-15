@@ -156,6 +156,10 @@ a{
   cursor: pointer;
 }
 
+.login h1, .register h1{
+  text-align: center;
+}
+
 div.post-page div.image {
   display: flex;
   justify-content: center;

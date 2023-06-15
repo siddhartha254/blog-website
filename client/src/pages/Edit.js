@@ -29,28 +29,38 @@ export default function Edit(){
     }, []);
 
     async function updatePost(ev){
-        const data = new FormData();
-        data.set('title', title);
-        data.set('summary', summary);
-        data.set('content', content);
-        data.set('id', id);
-        if(files){
-            data.set('file', files?.[0]);
-        };
 
-        ev.preventDefault();
+        try{
+            const data = new FormData();
+            data.set('title', title);
+            data.set('summary', summary);
+            data.set('content', content);
+            data.set('id', id);
+            if(files){
+                data.set('file', files?.[0]);
+            };
 
-        const response = await fetch('http://localhost:4000/post',{
-            method: 'PUT',
-            body: data,
-            credentials: 'include',
-        });
-        if(response.ok){
-            setRedirect(true);
-            toast.info(
-                <div className="toast-content">Blog updated</div>,
-                {autoClose: 1200}
-            );
+            ev.preventDefault();
+
+            let response=null;
+            try{
+                response = await fetch('http://localhost:4000/post',{
+                    method: 'PUT',
+                    body: data,
+                    credentials: 'include',
+                });
+            }catch(err){
+                console.log(err);
+            } 
+            if(response?.ok){
+                setRedirect(true);
+                toast.info(
+                    <div className="toast-content">Blog updated</div>,
+                    {autoClose: 1200}
+                );
+            }
+        }catch(err){
+            console.log(err);
         }
     }
 
