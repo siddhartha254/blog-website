@@ -59,7 +59,7 @@ export default function Content(){
             <h1>{postInfo.title}</h1>
             <time>{format(new Date(postInfo.createdAt), 'MMM d, yyyy HH:mm')}</time>
             <div className="author">by @{postInfo.author.username}</div>
-            {userInfo.id === postInfo.author._id &&(
+            {userInfo?.id === postInfo.author._id &&(
                 <div className="edit-row">
                     <Link className="edit-button" to={`/edit/${postInfo._id}`}>Edit</Link>
                     <Link className="delete-button" onClick={deletePost}>Delete</Link>

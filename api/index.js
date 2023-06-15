@@ -116,7 +116,7 @@ app.post('/post', uploadMiddleware.single('file'), async (req,res) =>{
     }
 })
 
-// updating posts
+// updating blog
 app.put('/post', uploadMiddleware.single('file'), async(req,res)=>{
     
     try{
@@ -156,17 +156,16 @@ app.put('/post', uploadMiddleware.single('file'), async(req,res)=>{
 });
 
 
-// deleting posts
+// deleting blog
 app.delete('/post/:id', async(req,res)=>{
 
+    const {id} = req.params;
     try{
     const {token} = req.cookies;
     jwt.verify(token, secret, {}, async (err, info)=>{
         if(err) throw err;
         
-        const {id} = req.params;
         const delPostDoc = await Post.findByIdAndDelete(id);
-
         res.json(delPostDoc); 
     });
 
@@ -192,10 +191,13 @@ app.get('/post', async (req,res)=>{
 
 //displaying specific post
 app.get('/post/:id', async(req,res)=>{
+    
+    const {id} = req.params;
     try{
-        const {id} = req.params;
-        const postDoc = await Post.findById(id).populate('author', ['username']);
-        res.json(postDoc);
+        if(id){
+            const postDoc = await Post.findById(id).populate('author', ['username']);
+            res.json(postDoc);
+        }
     }
     catch(err){
         res.json(err);
