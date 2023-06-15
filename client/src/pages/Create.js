@@ -3,7 +3,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"
 import {Navigate} from "react-router-dom";
 import Quill from "../components/Quill";
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Create(){
     
@@ -33,11 +34,18 @@ export default function Create(){
         
         if(response.ok){
             setRedirect(true);
+            toast.info(
+                <div className="toast-content">Blog created</div>,
+                {autoClose: 1200}
+            );
+            
         }
     }
 
     if(redirect){
-        return <Navigate to={'/'} />
+        return (
+            <Navigate to={'/'} />
+        )
     }
 
     return(

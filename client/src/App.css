@@ -140,7 +140,7 @@ form.register h1{
 }
 
 div.post-page div.image {
-  max-height: 300px;
+  max-height: 600px;
   display: flex;
   overflow: hidden;
 }
@@ -206,4 +206,10 @@ div.post-page a.delete-button{
   margin-bottom: 10px;
   border-radius: 5px;
   font-size: 0.8rem;
+}
+
+.toast-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

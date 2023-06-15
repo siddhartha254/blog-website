@@ -1,7 +1,8 @@
 import {useState, useEffect} from "react";
 import {Navigate, useParams} from "react-router-dom";
 import Quill from "../components/Quill";
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Edit(){
     
@@ -46,6 +47,10 @@ export default function Edit(){
         });
         if(response.ok){
             setRedirect(true);
+            toast.info(
+                <div className="toast-content">Blog updated</div>,
+                {autoClose: 1200}
+            );
         }
     }
 

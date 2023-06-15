@@ -137,17 +137,21 @@ app.put('/post', uploadMiddleware.single('file'), async(req,res)=>{
 
 
 // deleting posts
-app.delete('/post', async(req,res)=>{
+app.delete('/post/:id', async(req,res)=>{
 
     const {token} = req.cookies;
     jwt.verify(token, secret, {}, async (err, info)=>{
         if(err) throw err;
         
-        const {id} = req.body;
-        const postDoc = await Post.findById(id);
+        const {id} = req.params;
+        const delPostDoc = await Post.findByIdAndDelete(id);
 
-        res.json(postDoc); 
+        res.json(delPostDoc); 
     });
+
+    // if(check){
+    //     alert('Blog deleted')
+    // }
 });
 
 

@@ -1,6 +1,9 @@
 import {Link} from "react-router-dom"
 import {useContext, useEffect, useState} from "react";
 import { UserContext } from "./UserContext";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Header(){
 
@@ -23,6 +26,10 @@ export default function Header(){
         method: 'POST',
       });
       setUserInfo(null);
+      toast.info(
+        <div className="toast-content">You have been logged out</div>,
+        {autoClose: 1200}
+      );
     }
 
     const username = userInfo?.username;

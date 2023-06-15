@@ -1,13 +1,18 @@
 import { formatISO9075, format } from "date-fns";
 import { useContext, useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, Navigate, useParams} from "react-router-dom"
 import { UserContext } from "../components/UserContext";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Content(){
     
     const [postInfo, setPostInfo] = useState(null);
     const {id} = useParams();
     const {userInfo} = useContext(UserContext);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`http://localhost:4000/post/${id}`)
@@ -22,17 +27,26 @@ export default function Content(){
     
     async function deletePost(ev){
 
-        ev.preventDefault();
-
+        
         const data = new FormData();
-        data.set('id', postInfo._id);
+        
+        data.set('id', id);
         // data.set('postInfo', postInfo);
 
-        const response = await fetch('http://localhost:4000/post',{
+        ev.preventDefault();
+
+        const response = await fetch(`http://localhost:4000/post/${id}`,{
             method: 'DELETE',
             body: data,
             credentials: 'include',
         });
+        if(response.ok){
+            navigate('/');  
+            toast.info(
+                <div className="toast-content">Blog deleted</div>,
+                {autoClose: 1200}
+            );
+        }
     }
 
 
@@ -47,7 +61,7 @@ export default function Content(){
             {userInfo.id === postInfo.author._id &&(
                 <div className="edit-row">
                     <Link className="edit-button" to={`/edit/${postInfo._id}`}>Edit</Link>
-                    <Link className="delete-button" to={`/`} onClick={deletePost}>Delete</Link>
+                    <Link className="delete-button" onClick={deletePost}>Delete</Link>
                 </div>
             )}
             <div className="image">

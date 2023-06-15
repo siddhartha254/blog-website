@@ -10,6 +10,7 @@ import Register from './pages/Register';
 import Create from './pages/Create';
 import Content from './pages/Content';
 import Edit from './pages/Edit';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -26,12 +27,8 @@ function App() {
 
         </Route>
       </Routes>
+      <ToastContainer />
     </UserContextProvider>
-    
-
-    
-    
-
   );
 }
 

@@ -1,10 +1,14 @@
 import {useState} from "react"
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Register(){
     
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     
+    const navigate = useNavigate();
 
     async function register(ev){
         ev.preventDefault();
@@ -15,10 +19,14 @@ export default function Register(){
             headers: {'Content-Type':'application/json'},
         })
         if(response.status === 200){
-            alert("Registration Successful");
+            toast.info(
+                <div className="toast-content">Account created</div>,
+                {autoClose: 1200}
+            );
+            navigate('/login');
         }
         else{
-            alert("Registration Failed")
+            alert("Registration Failed");
         }
     }
 
