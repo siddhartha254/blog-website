@@ -44,6 +44,7 @@ export default function Header(){
         <nav>
           {username && (
             <>
+            <Link to={`/bookmarks/${userInfo.id}`} id="create">Your Bookmarks</Link>
             <Link to="/create" id="create">Create a blog</Link>
             <a onClick={logout} id="logout">Logout</a>
             </>

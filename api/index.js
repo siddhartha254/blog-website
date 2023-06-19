@@ -9,8 +9,10 @@ const multer = require('multer');
 const uploadMiddleware = multer({dest:'uploads/'});
 const fs = require('fs');
 
+
 const User = require('./models/User');
 const Post = require('./models/Post');
+
 const { ifError } = require('assert');
 const { isError } = require('util');
 
@@ -178,6 +180,59 @@ app.delete('/post/:id', async(req,res)=>{
 });
 
 
+// adding to bookmarks
+app.put('/post/:id', async(req,res)=>{
+
+    const userId = req.body.userId;
+    const {id} = req.params;
+    
+    try{
+        const {token} = req.cookies;
+        jwt.verify(token, secret, {}, async (err, info)=>{
+            if(err) throw err;
+
+            const post = await Post.findById(id);
+            const user = await User.findById(userId); 
+            
+            user.bookmarks.push(post);
+            await user.save();
+            res.json({bookmarks:user.bookmarks});
+            // const response = {
+            //     message: 'Received the userId successfully',
+            //     userId: userId,
+            //   };
+            // res.json(user);
+
+        });
+
+    }catch(err){
+        res.json(err);
+    }
+});
+
+//checking if a post is bookmarked
+app.options('/post/:id', async(req,res)=>{
+    const userId = req.body.userId;
+    const {id} = req.params;
+
+    try{
+        const {token} = req.cookies;
+        jwt.verify(token, secret, {}, async (err, info)=>{
+            if(err) throw err;
+
+            const user = await User.findById(userId);
+            const isBookmarked = user.bookmarks.includes(id);
+
+            res.json({ isBookmarked });
+        });
+
+    }catch(err){
+        res.json(err);
+    }
+})
+
+
+
 
 // displaying all posts
 app.get('/post', async (req,res)=>{
@@ -203,6 +258,33 @@ app.get('/post/:id', async(req,res)=>{
         res.json(err);
     }
 })
+
+
+// displaying bookmarks
+app.get('/bookmarks/:id', async (req,res)=>{
+    
+    const {id} = req.params;
+    
+    try{
+        const user = await User.findById(id);
+        const bookmarks = user.bookmarks;
+
+        const arr = []
+        // res.json(bookmarks.populate('author',['username']).sort({createdAt: -1}));
+        for (const postId of bookmarks) {
+            const populatedPost = await Post.findById(postId).populate('author', ['username']).sort({createdA:-1});
+            arr.push(populatedPost);
+        }
+
+        res.json(arr);
+
+    }catch(err){
+        res.json(err);
+    }
+})
+
+
+
 
 
 

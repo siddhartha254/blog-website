@@ -10,7 +10,9 @@ import Register from './pages/Register';
 import Create from './pages/Create';
 import Content from './pages/Content';
 import Edit from './pages/Edit';
+import Bookmarks from './pages/Bookmarks';
 import { ToastContainer } from 'react-toastify';
+
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
           <Route path="/create" element={<Create />} />
           <Route path="/post/:id" element={<Content />} />
           <Route path="/edit/:id" element={<Edit />} />
+          <Route path="/bookmarks/:id" element={<Bookmarks />} />
 
         </Route>
       </Routes>

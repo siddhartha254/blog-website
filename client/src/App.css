@@ -73,6 +73,13 @@ div.post{
   padding: 20px;
   border: 1px solid grey;
   border-radius: 6px;
+  max-height: 220px;
+  overflow: hidden;
+}
+
+div.post img{
+  max-height: 180px;
+  width:380px;
 }
 
 
@@ -101,8 +108,22 @@ div.post p.info a.author{
 }
 
 div.post p.summary{
-  margin: 10px 0;
+  margin: 7px 0;
   line-height: 1.4rem;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+div.post p.summary::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+div.post p.summary::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+div.post p.summary::-webkit-scrollbar-track {
+  background-color: #eee;
 }
 
 form.login{
@@ -223,6 +244,19 @@ div.post-page a.edit-button:hover, div.post-page a.delete-button:hover{
   border-radius: 5px;
 }
 
+
+
+div.post-page button.bookmark-button{
+  display: flex;
+}
+
+div.post-page svg.icon {
+  align-items: end;
+}
+
+#empty{
+  text-align: center;
+}
 
 .toast-content {
   white-space: nowrap;
