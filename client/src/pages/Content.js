@@ -90,35 +90,31 @@ export default function Content(){
         
     }
 
-    async function checkBookmark(ev){
-        
-        try{
-            const userId = userInfo.id;
-            ev.preventDefault();
+    const [bookmarks, setBookmarks] = useState([]);
 
-            const response = await fetch(`http://localhost:4000/post/${id}`,{
-                method: 'OPTIONS',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({userId}),
-                credentials: 'include',
-            });
-
-            // setButtonDisabled(true);
-            // localStorage.setItem('buttonDisabled', 'true');
+    useEffect(()=> {
+        const fetchBookmarks = async () =>{
             
-            console.log(response);
-
-            // if(response.ok && !response.isBookmarked){  
-            //     toast.info(
-            //         <div className="toast-content">Added to Bookmarks</div>,
-            //         {autoClose: 1200}
-            //     );
-            // }
-        }catch(err){
-            console.log(err);
+            const userId = userInfo.id;
+            try{
+                const response = await fetch(`http://localhost:4000/post/${id}`,{
+                    method: 'OPTIONS',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({userId}),
+                    credentials: 'include',
+                });
+                setBookmarks(response.data.bookmarks);
+                //console.log(response.data);
+            }catch(err){
+                console.error(err);
+            }
         }
-        
-    }
+    }, []);
+
+    const isBookmarked = (id) => {
+        bookmarks.includes(id);
+        console.log(bookmarks);
+    };
 
 
 
@@ -130,7 +126,7 @@ export default function Content(){
             <h1>
                 {postInfo.title}
 
-                {userInfo && (
+                {userInfo?.id && (
                 <div className="bookmark-button">
                 
                     <svg xmlns="http://www.w3.org/2000/svg" 
@@ -145,7 +141,7 @@ export default function Content(){
                     </svg>
 
                 </div>
-            )}
+                )}
             </h1>
             <time>{format(new Date(postInfo.createdAt), 'MMM d, yyyy HH:mm')}</time>
             <div className="author">by @{postInfo.author.username}</div>

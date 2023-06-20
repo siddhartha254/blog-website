@@ -73,13 +73,8 @@ div.post{
   padding: 20px;
   border: 1px solid grey;
   border-radius: 6px;
-  max-height: 220px;
+  height: 220px;
   overflow: hidden;
-}
-
-div.post img{
-  max-height: 180px;
-  width:380px;
 }
 
 
@@ -112,6 +107,11 @@ div.post p.summary{
   line-height: 1.4rem;
   max-height: 200px;
   overflow-y: scroll;
+}
+
+div.post div.image img{
+  height: 180px;
+  width: 375px;
 }
 
 div.post p.summary::-webkit-scrollbar {

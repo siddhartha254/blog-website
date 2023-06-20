@@ -212,8 +212,8 @@ app.put('/post/:id', async(req,res)=>{
 
 //checking if a post is bookmarked
 app.options('/post/:id', async(req,res)=>{
+    
     const userId = req.body.userId;
-    const {id} = req.params;
 
     try{
         const {token} = req.cookies;
@@ -221,9 +221,7 @@ app.options('/post/:id', async(req,res)=>{
             if(err) throw err;
 
             const user = await User.findById(userId);
-            const isBookmarked = user.bookmarks.includes(id);
-
-            res.json({ isBookmarked });
+            res.json({bookmarks: user?.bookmarks});
         });
 
     }catch(err){
